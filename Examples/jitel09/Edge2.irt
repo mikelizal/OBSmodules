@@ -1,0 +1,24 @@
+ifconfig:
+
+# ethernet card 0 of router - connected to host2
+name: eth0
+  inet_addr: 10.0.2.2
+  Mask: 255.255.255.0
+  MTU: 1500
+  Metric: 1
+  BROADCAST MULTICAST
+
+# obs card - connected to coreNode1
+name: obs
+  inet_addr: 10.0.0.2
+  Mask: 255.255.255.0
+  MTU: 1500
+  Metric: 1
+  MULTICAST POINTTOPOINT
+
+ifconfigend.
+
+route:
+	default: 0.0.0.0 0.0.0.0 G 0 obs
+routeend.
+

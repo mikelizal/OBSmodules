@@ -1,0 +1,37 @@
+OBS Modules for OMNeT++ and OMNEST
+
+Requirements
+============
+OBSModules is tested to compile and work properly with the following versions of OMNeT++ and INET Framework:
+- OMNeT++ 4.2
+- INET-20111118
+
+Suport for newer versions could be included in future releases of OBSModules.
+
+
+Installation instructions
+=========================
+
+The installation of the modules can be done via the IDE. 
+
+1. Importing the project
+
+Select the Import... option from the File menu. Then, select "Existing Projects into Workspace". In the following screen,
+select as the root directory the directory where obsmodules and INET are situated, check the current project and click Finish.
+
+2. Checking the reference to INET
+
+Go to the Properties option of the Project menu. In the "Project References" section, check the INET directory if it is not cheched and click OK.
+
+3. Building the project
+
+Select the Build All option in the Project menu.
+
+If everything went right, OBSModules is compiled and ready to run. Choose a test from the test directory, right-click on its omnetpp.ini and choose the "Run As - 1. OMNeT++ Simulation..." option to see if it works.
+ 
+
+Documentation
+=============
+
+In order to generate documentation from the IDE, select the Generate NED Documentation... option from the Project menu,
+then check the current project and click OK.

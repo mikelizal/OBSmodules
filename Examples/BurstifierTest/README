@@ -1,0 +1,10 @@
+BurstifierTest
+==============
+
+This network tests if OBS_Burstifier works properly.
+
+SETTINGS:
+
+All configuration is done in omnetpp.ini. 
+**.generator parameters set the input traffic and **.burstifier parameters 
+define the burstifier. Use the example given as a template.

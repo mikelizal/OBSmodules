@@ -1,0 +1,19 @@
+EdgeNodeTest
+============
+
+This network is intended to test the complete Edge Node module works properly.
+
+SETTINGS:
+
+Sender parameters could be divided into two main categories: parameters for the BurstSender module itself and Burstifier Settings*. 
+All of these parameters are defined in omnetpp.ini. See Documentation for more information about module parameters.
+
+* Note that every burstifier in this simulation shares the same parameter values. Users can set different values for each burstifier 
+parameter just by referring to each burstifier explicitly.
+For example, in the following line each of 5 burstifiers will insert a different value in the destLabel field:
+
+**.fileBurstifier[0].destLabel = 0
+**.fileBurstifier[1].destLabel = 1
+**.fileBurstifier[2].destLabel = 2
+**.fileBurstifier[3].destLabel = 3
+**.fileBurstifier[4].destLabel = 4

@@ -1,0 +1,12 @@
+/* This bc script calculates the message frequency for each workload given the message size and channel data rate*/
+scale=10
+
+for(i=10;i<=70;i=i+10){
+	tasa = 10^10 * (i/100)
+	tasa_ind = tasa/6
+	lambda= tasa_ind/11776
+	freq= 1/lambda
+	print "Frequency for a "; i; "% workload: "; freq
+}
+
+quit

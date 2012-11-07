@@ -1,0 +1,1 @@
+../../obsmodules -c config1 -u Cmdenv -n "../../../inet/src;../.."
