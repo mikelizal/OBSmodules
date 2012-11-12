@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2010-2012 Javier Armendariz Silva, Naiara Garcia Royo
+// Copyright (C) 2010-2012 Javier Armendariz Silva, Naiara Garcia Royo, Felix Espina Antolin
 // Copyright (C) 2010-2012 Universidad Publica de Navarra
 //
 // This file is part of OBSModules.
@@ -20,7 +20,7 @@
 
 package obsmodules.src.EdgeNode;
 
-import inet.util.NAMTraceWriter;
+//import inet.util.NAMTraceWriter;
 import inet.nodes.inet.NetworkLayer;
 import inet.networklayer.ipv4.RoutingTable;
 import inet.networklayer.common.InterfaceTable;
@@ -46,11 +46,11 @@ module OBS_EdgeNode
         input obsIn[];  // OBS input
         output obsOut[]; //OBS output
     submodules:
-        namTrace: NAMTraceWriter {
-            parameters:
-                namid = -1; // auto
-                @display("p=330,60;i=block/sink");
-        }
+//        namTrace: NAMTraceWriter {
+//            parameters:
+//                namid = -1; // auto
+//                @display("p=330,60;i=block/sink");
+///        }
         notificationBoard: NotificationBoard {
             parameters:
                 @display("p=60,60;i=block/control");
@@ -96,14 +96,18 @@ module OBS_EdgeNode
         // connections to the outer world
         for i=0..sizeof(pppIO)-1 {
             pppIO[i] <--> ppp[i].phys;
-            ppp[i].netwOut --> networkLayer.ifIn[i];
-            ppp[i].netwIn <-- networkLayer.ifOut[i];
+//            ppp[i].netwOut --> networkLayer.ifIn[i];
+//            ppp[i].netwIn <-- networkLayer.ifOut[i];
+            ppp[i].upperLayerOut --> networkLayer.ifIn[i];
+            ppp[i].upperLayerIn <-- networkLayer.ifOut[i];
         }
 
         for i=0..sizeof(ethIO)-1 {
             ethIO[i] <--> eth[i].phys;
-            eth[i].netwOut --> networkLayer.ifIn[sizeof(pppIO)+i];
-            eth[i].netwIn <-- networkLayer.ifOut[sizeof(pppIO)+i];
+//            eth[i].netwOut --> networkLayer.ifIn[sizeof(pppIO)+i];
+//            eth[i].netwIn <-- networkLayer.ifOut[sizeof(pppIO)+i];
+            eth[i].upperLayerOut --> networkLayer.ifIn[sizeof(pppIO)+i];
+            eth[i].upperLayerIn <-- networkLayer.ifOut[sizeof(pppIO)+i];
         }
 
         for i=0..sizeof(obsIn)-1 {

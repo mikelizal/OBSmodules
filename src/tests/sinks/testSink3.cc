@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2012 Naiara Garcia Royo
+// Copyright (C) 2012 Naiara Garcia Royo, Felix Espina Antolin
 // Copyright (C) 2012 Universidad Publica de Navarra
 //
 // This file is part of OBSModules.
@@ -52,7 +52,8 @@ void testSink3::handleMessage(cMessage *msg){
 			//Save packet's information in the file
 			int protocol;
 			while (burst->hasMessages()){
-				IPDatagram *datagram = check_and_cast <IPDatagram *> (burst->retrieveMessage());
+//				IPDatagram *datagram = check_and_cast <IPDatagram *> (burst->retrieveMessage());
+                IPv4Datagram *datagram = check_and_cast <IPv4Datagram *> (burst->retrieveMessage());
 				protocol = datagram->getTransportProtocol();
 				if (protocol == IP_PROT_TCP){
 					TCPSegment *segment = check_and_cast <TCPSegment *> (datagram->getEncapsulatedPacket());
@@ -812,8 +813,10 @@ bool testSink3::compareFiles(){
 
 				if(!strcmp(srcAddrPChr,"*") == 0){ //Compare this parameter
 					//Convert from char * to IPAddress
-					IPAddress srcAddrP;
-					IPAddress srcAddr;
+//                    IPAddress srcAddrP;
+//                    IPAddress srcAddr;
+                    IPv4Address srcAddrP;
+                    IPv4Address srcAddr;
 
 					srcAddrP.set(srcAddrPChr);
 					srcAddr.set(srcAddrChr);
@@ -827,8 +830,10 @@ bool testSink3::compareFiles(){
 
 				if(!strcmp(destAddrPChr,"*") == 0){ //Compare this parameter
 					//Convert from char * to IPAddress
-					IPAddress destAddrP;
-					IPAddress destAddr;
+//					IPAddress destAddrP;
+//					IPAddress destAddr;
+                    IPv4Address destAddrP;
+                    IPv4Address destAddr;
 
 					destAddrP.set(destAddrPChr);
 					destAddr.set(destAddrChr);

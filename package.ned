@@ -1,6 +1,6 @@
 //@titlepage
 // <center><h1>OBS Modules for OMNeT++/OMNEST</h1></center>
-// <center>release 2012-04-25</center>
+// <center>release 2012-11-12</center>
 //
 //
 // OBS Modules implement all basic components required to simulate an OBS network. Functionalities are isolated over submodules in order to keep it as modular as possible.

@@ -1,5 +1,5 @@
 #!/bin/bash
-root=obsmodules
+root=OBSmodules
 twoRuns="PacketDispatcherTest PacketBurstifierTest BurstSenderTest CoreNodeTest \
 CoreInputTest CoreOutputTest OEConverterTest EOConverterTest DropBurstTest"
 OK=0

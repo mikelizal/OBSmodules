@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2010-2012 Javier Armendariz Silva, Naiara Garcia Royo
+// Copyright (C) 2010-2012 Javier Armendariz Silva, Naiara Garcia Royo, Felix Espina Antolin
 // Copyright (C) 2010-2012 Universidad Publica de Navarra
 //
 // This file is part of OBSModules.
@@ -18,10 +18,12 @@
 // along with OBSModules.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#include<IPAddress.h>
+//#include<IPAddress.h>
+#include<IPv4Address.h>
 #include<string>
 #include<string.h>
-#include<IPDatagram_m.h>
+//#include<IPDatagram_m.h>
+#include<IPv4Datagram.h>
 #include<TCPSegment.h>
 #include<UDPPacket.h>
 
@@ -31,8 +33,10 @@ using namespace std;
 class OBS_DispatcherRule{
    protected:
       bool isSet[5]; //!< Define whether fields are taken into account or not. Each field's indexes are commented below.
-      IPAddress srcAddr; //!< Source address (isSet[0]).
-      IPAddress destAddr; //!< Destination address (isSet[1]).
+//      IPAddress srcAddr; //!< Source address (isSet[0]).
+//      IPAddress destAddr; //!< Destination address (isSet[1]).
+      IPv4Address srcAddr; //!< Source address (isSet[0]).
+      IPv4Address destAddr; //!< Destination address (isSet[1]).
       int protocol;//!< IP protocol (isSet[2]).
       short srcPort; //!< Source port (isSet[3]).
       short destPort; //!< Destination port (isSet[4]).

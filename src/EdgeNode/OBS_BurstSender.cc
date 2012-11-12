@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2010-2012 Javier Armendariz Silva, Naiara Garcia Royo
+// Copyright (C) 2010-2012 Javier Armendariz Silva, Naiara Garcia Royo, Felix Espina Antolin
 // Copyright (C) 2010-2012 Universidad Publica de Navarra
 //
 // This file is part of OBSModules.
@@ -46,7 +46,7 @@ void OBS_BurstSender::initialize(){
 
    int maxSchedBurstSizeInBits = maxSchedBurstSize*8;
    scheduledBurst.setMaxSize(maxSchedBurstSizeInBits);
-   scheduledBurst.setMaxElems(par("maxSchedBurstElems"));
+   scheduledBurst.setMaxElems((int)par("maxSchedBurstElems"));
 
    testing = par("testing");
 
@@ -135,7 +135,8 @@ void OBS_BurstSender::initialize(){
 
 // Code taken from INET Router module. Register the OBS interface into the interface table among other things
 InterfaceEntry* OBS_BurstSender::registerInterface (double datarate){
-    InterfaceEntry *e = new InterfaceEntry();
+//    InterfaceEntry *e = new InterfaceEntry();
+    InterfaceEntry *e = new InterfaceEntry(this);
     // interface name: our module name without special characters ([])
     char *interfaceName = new char[strlen(getParentModule()->getParentModule()->getFullName())+1];
     char *d=interfaceName;
@@ -164,7 +165,8 @@ InterfaceEntry* OBS_BurstSender::registerInterface (double datarate){
 
     // add
     IInterfaceTable *ift = InterfaceTableAccess().get();
-    ift->addInterface(e, this);
+//    ift->addInterface(e, this);
+    ift->addInterface(e);
     //Maybe this could be useful in the future...
 //  e->setNodeOutputGateId(e->getNodeOutputGateId()-lambda*idInterfaz);
     //e->setNodeOutputGateId(e->getNodeOutputGateId()-lambda+1);
@@ -205,10 +207,9 @@ void OBS_BurstSender::handleMessage(cMessage *msg){
 
          
          //Enter here if the burst can be sent just when channel wl sets free. (there will be enough time to send the bcp and wait the max offset time)
-         if(horizon[wl] - burst->getMaxOffset() >= simTime()){ // Note the =. It means we could schedule a burst at the same value than the horizon value 
+         if(horizon[wl] - burst->getMaxOffset() >= simTime()){ // Note the =. It means we could schedule a burst at the same value than the horizon value
             //Store into ScheduledBurst
             pos = scheduledBurst.insertBurst(burst, horizon[wl]);
-
             if(pos == -1){ // scheduledBurst is full. Drop this burst!
                delete msg;
                delete ctlMsg;
@@ -220,7 +221,7 @@ void OBS_BurstSender::handleMessage(cMessage *msg){
             // Fill ctlMsgs fields (this message will travel across all Sender's states)
             ctlMsg->setControlInfo(myinfo);
             ctlMsg->setKind(OBS_SCHEDULE_BCP); //Set to step 1: Schedule BCP
-            
+
 	    //Schedule BCP send 
             scheduleAt(horizon[wl] - burst->getMaxOffset(), ctlMsg);
 
@@ -233,7 +234,7 @@ void OBS_BurstSender::handleMessage(cMessage *msg){
          }
          else{ //You can send the BCP inmediately so that the Burst will be sent within maxOffset
             //Store into ScheduledBurst
-	    pos = scheduledBurst.insertBurst(burst, simTime() + burst->getMaxOffset());
+            pos = scheduledBurst.insertBurst(burst, simTime() + burst->getMaxOffset());
             if(pos == -1){ // Scheduled burst queue is full. Drop it!
                delete msg;
                delete ctlMsg;
@@ -370,7 +371,7 @@ void OBS_BurstSender::handleMessage(cMessage *msg){
          
          //Remove control info and container message
          delete msg;
-	 delete info;
+         delete info;
          //Update the successful sends counter
          burstSent++;
       }

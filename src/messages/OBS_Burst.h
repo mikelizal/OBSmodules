@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2010-2012 Javier Armendariz Silva, Naiara Garcia Royo
+// Copyright (C) 2010-2012 Javier Armendariz Silva, Naiara Garcia Royo, Felix Espina Antolin
 // Copyright (C) 2010-2012 Universidad Publica de Navarra
 //
 // This file is part of OBSModules.
@@ -28,12 +28,13 @@ class OBS_Burst : public OBS_Burst_Base
      public:
      ///\internal Declarations copied as-is the template proposed in OBS_Burst_Base
      OBS_Burst(const char *name=NULL, int kind=0) : OBS_Burst_Base(name,kind) {}
-     OBS_Burst(const OBS_Burst& other) : OBS_Burst_Base(other.getName()) {operator=(other);}
+//     OBS_Burst(const OBS_Burst& other) : OBS_Burst_Base(other.getName()) {operator=(other);}
+     OBS_Burst(const OBS_Burst& other) : OBS_Burst_Base(other) {operator=(other);}
      ~OBS_Burst();
      OBS_Burst& operator=(const OBS_Burst& other){OBS_Burst_Base::operator=(other);return *this;}
 
      virtual OBS_Burst *dup() const {return new OBS_Burst(*this);}
- 
+
      virtual void insertMessage(cMessage *msg); //!< Inserts a message in the queue.
      virtual cMessage* retrieveMessage(); //!< Retrieves and deletes the first message of the queue. NULL if queue is empty.
      virtual bool hasMessages(); //!< Returns true if queue is not empty. Otherwise, returns false.

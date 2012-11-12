@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2010-2012 Javier Armendariz Silva, Naiara Garcia Royo
+// Copyright (C) 2010-2012 Javier Armendariz Silva, Naiara Garcia Royo, Felix Espina Antolin
 // Copyright (C) 2010-2012 Universidad Publica de Navarra
 //
 // This file is part of OBSModules.
@@ -73,7 +73,8 @@ void OBS_PacketBurstifier::handleMessage(cMessage *msg){
       assembleBurst();
    }
    else{ //Else.... is it a IP Datagram?
-      IPDatagram *arrivedMsg = check_and_cast < IPDatagram *> (msg);
+//      IPDatagram *arrivedMsg = check_and_cast < IPDatagram *> (msg);
+      IPv4Datagram *arrivedMsg = check_and_cast < IPv4Datagram *> (msg);
 
       //record incoming packet
       recvPackSizeVec.record(arrivedMsg->getByteLength());

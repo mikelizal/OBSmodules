@@ -4,7 +4,7 @@ Requirements
 ============
 OBSModules is tested to compile and work properly with the following versions of OMNeT++ and INET Framework:
 - OMNeT++ 4.2
-- INET-20111118
+- INET-2.0.0 stable release (Aug 7, 2012)
 
 Suport for newer versions could be included in future releases of OBSModules.
 

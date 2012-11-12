@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2010-2012 Javier Armendariz Silva, Naiara Garcia Royo
+// Copyright (C) 2010-2012 Javier Armendariz Silva, Naiara Garcia Royo, Felix Espina Antolin
 // Copyright (C) 2010-2012 Universidad Publica de Navarra
 //
 // This file is part of OBSModules.
@@ -19,8 +19,10 @@
 //
 
 #include<omnetpp.h>
-#include "IPDatagram.h"
-#include <IPControlInfo.h>
+//#include "IPDatagram.h"
+//#include <IPControlInfo.h>
+#include "IPv4Datagram.h"
+#include <IPv4ControlInfo.h>
 
 using namespace std;
 
@@ -41,16 +43,20 @@ PacketConverter::~PacketConverter(){}
 
 void PacketConverter::handleMessage(cMessage *msg){
    //IPTrafGen generates a cMessage packet which contains a IPControlInfo object encapsulated
-   IPControlInfo *IPCtl = check_and_cast < IPControlInfo *> (msg->getControlInfo());
+//   IPControlInfo *IPCtl = check_and_cast < IPControlInfo *> (msg->getControlInfo());
+   IPv4ControlInfo *IPCtl = check_and_cast < IPv4ControlInfo *> (msg->getControlInfo());
 
    // Create a IPDatagram object
-   IPDatagram *IPSal = new IPDatagram();
+//   IPDatagram *IPSal = new IPDatagram();
+   IPv4Datagram *IPSal = new IPv4Datagram();
    // Fill IP datagram with control info fields
    // I dont know if exists another way to copy IP Addresses. This works.
-   int srcCtlAddr = (IPCtl->getSrcAddr()).getInt(); //Convert to integer and insert this value into IP Address constructors
-   int destCtlAddr = (IPCtl->getDestAddr()).getInt();
-   IPSal->setSrcAddress(srcCtlAddr);
-   IPSal->setDestAddress(destCtlAddr);
+//   int srcCtlAddr = (IPCtl->getSrcAddr()).getInt(); //Convert to integer and insert this value into IP Address constructors
+//   int destCtlAddr = (IPCtl->getDestAddr()).getInt();
+//   IPSal->setSrcAddress(srcCtlAddr);
+//   IPSal->setDestAddress(destCtlAddr);
+   IPSal->setSrcAddress(IPCtl->getSrcAddr());
+   IPSal->setDestAddress(IPCtl->getDestAddr());
    // Also, add datagram length
    cPacket *pkt = check_and_cast<cPacket *> (msg);
    IPSal->setBitLength(pkt->getBitLength());

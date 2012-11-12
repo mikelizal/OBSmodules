@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2012 Naiara Garcia Royo
+// Copyright (C) 2012 Naiara Garcia Royo, Felix Espina Antolin
 // Copyright (C) 2012 Universidad Publica de Navarra
 //
 // This file is part of OBSModules.
@@ -19,7 +19,8 @@
 //
 #include <fstream>
 #include <omnetpp.h>
-#include "IPDatagram_m.h"
+//#include "IPDatagram_m.h"
+#include "IPv4Datagram.h"
 #include "TCPSegment.h"
 #include "UDPPacket_m.h"
 #include "OBS_Burst.h"

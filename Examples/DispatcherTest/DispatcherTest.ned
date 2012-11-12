@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2010-2012 Javier Armendariz Silva, Naiara Garcia Royo
+// Copyright (C) 2010-2012 Javier Armendariz Silva, Naiara Garcia Royo, Felix Espina Antolin
 // Copyright (C) 2010-2012 Universidad Publica de Navarra
 //
 // This file is part of OBSModules.
@@ -23,7 +23,8 @@ package obsmodules.Examples.DispatcherTest;
 import obsmodules.src.tests.PacketConverter;
 import obsmodules.src.EdgeNode.OBS_PacketDispatcher;
 import inet.base.Sink;
-import inet.applications.generic.IPTrafGen;
+//import inet.applications.generic.IPTrafGen;
+import inet.applications.generic.IPvXTrafGen;
 
 // Module used to check that the dispatcher works properly.
 // The generator creates IP Packets varying the destination IP field.
@@ -36,10 +37,12 @@ network DispatcherTest
         int numQueues; // Number of queues of the dispatcher
         string rulesFile; // File with the dispatcher rules
     submodules:
-        generator: IPTrafGen {
-            parameters:
+//        generator: IPTrafGen {
+        generator: IPvXTrafGen {
+                parameters:
                 startTime = 0;
-                packetInterval = exponential(1s);
+//                packetInterval = exponential(1s);
+                sendInterval = exponential(1s);          
                 numPackets = 100;
                 protocol = 6;
                 packetLength = 1000 B;

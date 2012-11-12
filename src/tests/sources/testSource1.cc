@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2012 Naiara Garcia Royo
+// Copyright (C) 2012 Naiara Garcia Royo, Felix Espina Antolin
 // Copyright (C) 2012 Universidad Publica de Navarra
 //
 // This file is part of OBSModules.
@@ -34,7 +34,8 @@ void testSource1::initialize(){
 }
 
 void testSource1::handleMessage(cMessage *msg){
-	if (dynamic_cast <IPDatagram *> (msg) != NULL){
+//	if (dynamic_cast <IPDatagram *> (msg) != NULL){
+    if (dynamic_cast <IPv4Datagram *> (msg) != NULL){
 		//Send the packet from the output gate (this module has only one)
 		send(msg,"out");
 		//Read the following line and schedule the packet
@@ -69,13 +70,20 @@ void testSource1::processLine(){
 			sendTime = SimTime::parse(sendTimeChr);
 			if(simTime()<=sendTime){//If the datagram is not scheduled to the past, schedule it
 				//Create the datagram and fill it
-				IPDatagram *datagram = new IPDatagram();
+//				IPDatagram *datagram = new IPDatagram();
+                IPv4Datagram *datagram = new IPv4Datagram();
 				datagram->setByteLength(length);
 				if(!strcmp(srcAddr,"*") == 0){ //Optional parameter
-					datagram->setSrcAddress(srcAddr);
+//					datagram->setSrcAddress(srcAddr);
+                    IPv4Address srcAddrP;
+                    srcAddrP.set(srcAddr);
+                    datagram->setSrcAddress(srcAddrP);
 				}
 				if(!strcmp(destAddr,"*") == 0){ //Optional parameter
-					datagram->setDestAddress(destAddr);
+//					datagram->setDestAddress(destAddr);
+                    IPv4Address destAddrP;
+                    destAddrP.set(destAddr);
+                    datagram->setDestAddress(destAddrP);
 				}
 				//Create the packet and encapsulate it
 				if(!strcmp(protocolChr,"*") == 0){ //Optional parameter

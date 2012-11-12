@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2012 Naiara Garcia Royo
+// Copyright (C) 2012 Naiara Garcia Royo, Felix Espina Antolin
 // Copyright (C) 2012 Universidad Publica de Navarra
 //
 // This file is part of OBSModules.
@@ -187,7 +187,8 @@ void testSource3::processLine(){
 						}
 					}
 					//Create the IP datagram and fill it
-					IPDatagram *datagram = new IPDatagram();
+//					IPDatagram *datagram = new IPDatagram();
+                    IPv4Datagram *datagram = new IPv4Datagram();
 					if(!strcmp(datagramLengthChr,"*") == 0){ //Optional parameter
 						char2int.clear();
 						char2int << datagramLengthChr;
@@ -195,10 +196,16 @@ void testSource3::processLine(){
 						datagram->setByteLength(datagramLength);
 					}
 					if(!strcmp(srcAddr,"*") == 0){ //Optional parameter
-						datagram->setSrcAddress(srcAddr);
+//						datagram->setSrcAddress(srcAddr);
+                        IPv4Address srcAddrP;
+                        srcAddrP.set(srcAddr);
+                        datagram->setSrcAddress(srcAddrP);
 					}
 					if(!strcmp(srcAddr,"*") == 0){ //Optional parameter
-						datagram->setDestAddress(destAddr);
+//						datagram->setDestAddress(destAddr);
+                        IPv4Address destAddrP;
+                        destAddrP.set(destAddr);
+                        datagram->setDestAddress(destAddrP);
 					}
 					if(!strcmp(protocolChr,"*") == 0){ //Optional parameter
 						char2int.clear();

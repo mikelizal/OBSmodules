@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2010-2012 Javier Armendariz Silva, Naiara Garcia Royo
+// Copyright (C) 2010-2012 Javier Armendariz Silva, Naiara Garcia Royo, Felix Espina Antolin
 // Copyright (C) 2010-2012 Universidad Publica de Navarra
 //
 // This file is part of OBSModules.
@@ -19,7 +19,8 @@
 //
 
 #include <omnetpp.h>
-#include<IPDatagram_m.h>
+//#include<IPDatagram_m.h>
+#include<IPv4Datagram.h>
 #include "OBS_Burst.h"
 #include "OBS_BurstifierInfo_m.h"
 

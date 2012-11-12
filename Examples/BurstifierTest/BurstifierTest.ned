@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2010-2012 Javier Armendariz Silva, Naiara Garcia Royo
+// Copyright (C) 2010-2012 Javier Armendariz Silva, Naiara Garcia Royo, Felix Espina Antolin
 // Copyright (C) 2010-2012 Universidad Publica de Navarra
 //
 // This file is part of OBSModules.
@@ -23,7 +23,8 @@ package obsmodules.Examples.BurstifierTest;
 import obsmodules.src.tests.PacketConverter;
 import obsmodules.src.EdgeNode.OBS_PacketBurstifier;
 import inet.base.Sink;
-import inet.applications.generic.IPTrafGen;
+//import inet.applications.generic.IPTrafGen;
+import inet.applications.generic.IPvXTrafGen;
 
 
 // Network used to check that the packet burstifier works properly.
@@ -31,8 +32,9 @@ import inet.applications.generic.IPTrafGen;
 network BurstifierTest
 {
     submodules:
-        generator: IPTrafGen {
-            parameters:
+//        generator: IPTrafGen {
+        generator: IPvXTrafGen {
+                parameters:
                 @display("p=51,72;i=block/source");
         }
         converter: PacketConverter {

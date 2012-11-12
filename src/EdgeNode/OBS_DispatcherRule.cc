@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2010-2012 Javier Armendariz Silva, Naiara Garcia Royo
+// Copyright (C) 2010-2012 Javier Armendariz Silva, Naiara Garcia Royo, Felix Espina Antolin
 // Copyright (C) 2010-2012 Universidad Publica de Navarra
 //
 // This file is part of OBSModules.
@@ -36,7 +36,8 @@ OBS_DispatcherRule::OBS_DispatcherRule(char* rule){
          //the next token should be an IP Address. If not, error!
          token = strtok(NULL," \n"); //Take the next token, which is the value
          if(token != NULL){ //If not null...
-            srcAddr = IPAddress(token); //Copy value with the correct format
+//            srcAddr = IPAddress(token); //Copy value with the correct format
+            srcAddr = IPv4Address(token); //Copy value with the correct format
             isSet[0] = true;
          }
          else{
@@ -47,7 +48,8 @@ OBS_DispatcherRule::OBS_DispatcherRule(char* rule){
          //the next token should be an IP Address. if not, error!
          token = strtok(NULL," \n");
          if(token != NULL){
-            destAddr = IPAddress(token);
+//            destAddr = IPAddress(token);
+            destAddr = IPv4Address(token);
             isSet[1] = true;
          }
          else{
@@ -101,7 +103,8 @@ OBS_DispatcherRule::~OBS_DispatcherRule(){}
 
 bool OBS_DispatcherRule::match(cMessage *msg){
    // Make sure the received message is an IPDatagram
-   IPDatagram *recvIP = check_and_cast< IPDatagram* > (msg);
+//   IPDatagram *recvIP = check_and_cast< IPDatagram* > (msg);
+   IPv4Datagram *recvIP = check_and_cast< IPv4Datagram* > (msg);
    // Later we'll extract TCP/UDP header if necessary
 
    // Check which fields are set in this rule
