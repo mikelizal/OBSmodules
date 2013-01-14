@@ -1,6 +1,6 @@
 //
-// Copyright (C) 2010-2012 Javier Armendariz Silva, Naiara Garcia Royo
-// Copyright (C) 2010-2012 Universidad Publica de Navarra
+// Copyright (C) 2010-2013 Javier Armendariz Silva, Naiara Garcia Royo, Felix Espina Antolin
+// Copyright (C) 2010-2013 Universidad Publica de Navarra
 //
 // This file is part of OBSModules.
 //
@@ -148,15 +148,15 @@ network TreeTopologyOBS
         }
     connections:
         //First of all, connect hosts with Edge Nodes
-        host1.ethg++ <--> edge1.ethIO++;
+        host1.ethg++ <--> { datarate=100Gbps; } <--> edge1.ethIO++;
 
-        host2.ethg++ <--> edge2.ethIO++;
+        host2.ethg++ <--> { datarate=100Gbps; } <--> edge2.ethIO++;
 
-        host3.ethg++ <--> edge3.ethIO++;
+        host3.ethg++ <--> { datarate=100Gbps; } <--> edge3.ethIO++;
 
-        host4.ethg++ <--> edge4.ethIO++;
+        host4.ethg++ <--> { datarate=100Gbps; } <--> edge4.ethIO++;
 
-        host5.ethg++ <--> edge5.ethIO++;
+        host5.ethg++ <--> { datarate=100Gbps; } <--> edge5.ethIO++;
 
         //Core Node connections. It will determine fiber ID in Core's routing table
 

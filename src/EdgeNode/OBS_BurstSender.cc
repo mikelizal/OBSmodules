@@ -1,6 +1,6 @@
 //
-// Copyright (C) 2010-2012 Javier Armendariz Silva, Naiara Garcia Royo, Felix Espina Antolin
-// Copyright (C) 2010-2012 Universidad Publica de Navarra
+// Copyright (C) 2010-2013 Javier Armendariz Silva, Naiara Garcia Royo, Felix Espina Antolin
+// Copyright (C) 2010-2013 Universidad Publica de Navarra
 //
 // This file is part of OBSModules.
 //
@@ -135,18 +135,16 @@ void OBS_BurstSender::initialize(){
 
 // Code taken from INET Router module. Register the OBS interface into the interface table among other things
 InterfaceEntry* OBS_BurstSender::registerInterface (double datarate){
-//    InterfaceEntry *e = new InterfaceEntry();
     InterfaceEntry *e = new InterfaceEntry(this);
-    // interface name: our module name without special characters ([])
-    char *interfaceName = new char[strlen(getParentModule()->getParentModule()->getFullName())+1];
-    char *d=interfaceName;
-    for (const char *s=getParentModule()->getParentModule()->getFullName(); *s; s++)
-        if (isalnum(*s))
-            *d++ = *s;
-    *d = '\0';
 
-    e->setName(interfaceName);
-    delete [] interfaceName;
+    const char * s = getParentModule()->getParentModule()->getFullName();
+    std::string name;
+    for (; *s; s++){
+         if (isalnum(*s)){
+             name += *s;
+         }
+    }
+    e->setName(name.c_str());
 
     // data rate
     e->setDatarate(datarate);
@@ -164,8 +162,8 @@ InterfaceEntry* OBS_BurstSender::registerInterface (double datarate){
     e->setPointToPoint(true);
 
     // add
-    IInterfaceTable *ift = InterfaceTableAccess().get();
-//    ift->addInterface(e, this);
+    IInterfaceTable *ift = InterfaceTableAccess().getIfExists();
+    if (ift)
     ift->addInterface(e);
     //Maybe this could be useful in the future...
 //  e->setNodeOutputGateId(e->getNodeOutputGateId()-lambda*idInterfaz);

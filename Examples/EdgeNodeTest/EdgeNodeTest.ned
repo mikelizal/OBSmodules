@@ -1,6 +1,6 @@
 //
-// Copyright (C) 2010-2012 Javier Armendariz Silva, Naiara Garcia Royo
-// Copyright (C) 2010-2012 Universidad Publica de Navarra
+// Copyright (C) 2010-2013 Javier Armendariz Silva, Naiara Garcia Royo, Felix Espina Antolin
+// Copyright (C) 2010-2013 Universidad Publica de Navarra
 //
 // This file is part of OBSModules.
 //
@@ -67,9 +67,9 @@ network EdgeNodeTest
                 @display("p=440,112;i=device/pc2");
         }
     connections:
-        host1.ethg++ <--> edge1.ethIO++;
+        host1.ethg++ <--> { datarate=100Gbps; } <--> edge1.ethIO++;
 
-        host2.ethg++ <--> edge2.ethIO++;
+        host2.ethg++ <--> { datarate=100Gbps; } <--> edge2.ethIO++;
 
         for i=0..numLambdas {
             edge1.obsOut[i] --> monitor.in[i];

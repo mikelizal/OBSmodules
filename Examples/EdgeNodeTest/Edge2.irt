@@ -19,6 +19,6 @@ name: obs
 ifconfigend.
 
 route:
-   10.0.0.1   10.0.1.3           255.255.255.0  H  0   obs
+   default:    10.0.1.3 0.0.0.0   G 0 obs
 routeend.
 

@@ -1,6 +1,6 @@
 //
-// Copyright (C) 2010-2012 Javier Armendariz Silva, Naiara Garcia Royo
-// Copyright (C) 2010-2012 Universidad Publica de Navarra
+// Copyright (C) 2010-2013 Javier Armendariz Silva, Naiara Garcia Royo, Felix Espina Antolin
+// Copyright (C) 2010-2013 Universidad Publica de Navarra
 //
 // This file is part of OBSModules.
 //
@@ -34,34 +34,40 @@ module OBS_EdgeInterface
     gates:
         input physIn[];
         output physOut[];
-        input netwIn; // Input from the network layer
-        output netwOut; // Output from the network layer
+//        input netwIn; // Input from the network layer
+//        output netwOut; // Output from the network layer
+		input upperLayerIn;
+		output upperLayerOut;
     submodules:
         assembler: OBS_BurstAssembler {
             parameters:
                 colours = outColours;
                 numLambdas = numOutLambdas;
                 @display("p=62,80;i=block/fork");
-            gates:
-                out[numOutLambdas+1];
+//            gates:
+//                out[numOutLambdas+1];
         }
         disassembler: OBS_BurstDisassembler {
             parameters:
                 //colours = inColours;
                 @display("p=66,160;i=block/join");
-            gates:
-                in[numInLambdas+1];
+//            gates:
+//                in[numInLambdas+1];
         }
     connections:
-        netwIn --> assembler.in;
+//        netwIn --> assembler.in;
+		upperLayerIn --> assembler.in;
 
         for i=0..numOutLambdas {
-            assembler.out[i] --> physOut++;
+//            assembler.out[i] --> physOut++;
+            assembler.out++ --> physOut++;
         }
 
         for i=0..numInLambdas {
-            physIn++ --> disassembler.in[i];
+//            physIn++ --> disassembler.in[i];
+            physIn++ --> disassembler.in++;
         }
 
-        disassembler.out --> netwOut;
+//        disassembler.out --> netwOut;
+		disassembler.out --> upperLayerOut;
 }

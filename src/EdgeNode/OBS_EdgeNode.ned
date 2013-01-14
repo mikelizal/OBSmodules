@@ -1,6 +1,6 @@
 //
-// Copyright (C) 2010-2012 Javier Armendariz Silva, Naiara Garcia Royo, Felix Espina Antolin
-// Copyright (C) 2010-2012 Universidad Publica de Navarra
+// Copyright (C) 2010-2013 Javier Armendariz Silva, Naiara Garcia Royo, Felix Espina Antolin
+// Copyright (C) 2010-2013 Universidad Publica de Navarra
 //
 // This file is part of OBSModules.
 //
@@ -20,7 +20,6 @@
 
 package obsmodules.src.EdgeNode;
 
-//import inet.util.NAMTraceWriter;
 import inet.nodes.inet.NetworkLayer;
 import inet.networklayer.ipv4.RoutingTable;
 import inet.networklayer.common.InterfaceTable;
@@ -46,11 +45,6 @@ module OBS_EdgeNode
         input obsIn[];  // OBS input
         output obsOut[]; //OBS output
     submodules:
-//        namTrace: NAMTraceWriter {
-//            parameters:
-//                namid = -1; // auto
-//                @display("p=330,60;i=block/sink");
-///        }
         notificationBoard: NotificationBoard {
             parameters:
                 @display("p=60,60;i=block/control");
@@ -68,10 +62,10 @@ module OBS_EdgeNode
         networkLayer: NetworkLayer {
             parameters:
                 @display("p=192,149;i=block/fork;q=queue");
-            gates:
-                // From the network layer, only one line goes to OBS Interface (the +1 in the following lines)
-                ifIn[(sizeof(pppIO)+sizeof(ethIO))+1];
-                ifOut[(sizeof(pppIO)+sizeof(ethIO))+1];
+//            gates:
+//                // From the network layer, only one line goes to OBS Interface (the +1 in the following lines)
+//                ifIn[(sizeof(pppIO)+sizeof(ethIO))+1];
+//                ifOut[(sizeof(pppIO)+sizeof(ethIO))+1];
         }
         ppp[sizeof(pppIO)]: PPPInterface {
             parameters:
@@ -88,37 +82,41 @@ module OBS_EdgeNode
                 //inColours = inColours; 
                 outColours = outColours;
                 @display("p=283,257;q=l2queue;i=block/ifcard");
-            gates:
-                physIn[sizeof(obsIn)];
-                physOut[sizeof(obsOut)];
+//            gates:
+//                physIn[sizeof(obsIn)];
+//                physOut[sizeof(obsOut)];
         }
     connections allowunconnected:
         // connections to the outer world
         for i=0..sizeof(pppIO)-1 {
             pppIO[i] <--> ppp[i].phys;
-//            ppp[i].netwOut --> networkLayer.ifIn[i];
-//            ppp[i].netwIn <-- networkLayer.ifOut[i];
-            ppp[i].upperLayerOut --> networkLayer.ifIn[i];
-            ppp[i].upperLayerIn <-- networkLayer.ifOut[i];
+//            ppp[i].upperLayerOut --> networkLayer.ifIn[i];
+//            ppp[i].upperLayerIn <-- networkLayer.ifOut[i];
+            ppp[i].upperLayerOut --> networkLayer.ifIn++;
+            ppp[i].upperLayerIn <-- networkLayer.ifOut++;
         }
 
         for i=0..sizeof(ethIO)-1 {
             ethIO[i] <--> eth[i].phys;
-//            eth[i].netwOut --> networkLayer.ifIn[sizeof(pppIO)+i];
-//            eth[i].netwIn <-- networkLayer.ifOut[sizeof(pppIO)+i];
-            eth[i].upperLayerOut --> networkLayer.ifIn[sizeof(pppIO)+i];
-            eth[i].upperLayerIn <-- networkLayer.ifOut[sizeof(pppIO)+i];
+//            eth[i].upperLayerOut --> networkLayer.ifIn[sizeof(pppIO)+i];
+//            eth[i].upperLayerIn <-- networkLayer.ifOut[sizeof(pppIO)+i];
+            eth[i].upperLayerOut --> networkLayer.ifIn++;
+            eth[i].upperLayerIn <-- networkLayer.ifOut++;
         }
 
         for i=0..sizeof(obsIn)-1 {
-            obsIn[i] --> obs.physIn[i];
+//            obsIn[i] --> obs.physIn[i];
+            obsIn[i] --> obs.physIn++;
         }
 
         for i=0..sizeof(obsOut)-1 {
-            obs.physOut[i] --> obsOut[i];
+//            obs.physOut[i] --> obsOut[i];
+            obs.physOut++ --> obsOut[i];
         }
 
         //Connection between OBS Interface and Network layer. Only one line, as mentioned before
-        obs.netwOut --> networkLayer.ifIn[sizeof(pppIO)+sizeof(ethIO)];
-        obs.netwIn <-- networkLayer.ifOut[sizeof(pppIO)+sizeof(ethIO)];
+//        obs.netwOut --> networkLayer.ifIn[sizeof(pppIO)+sizeof(ethIO)];
+//        obs.netwIn <-- networkLayer.ifOut[sizeof(pppIO)+sizeof(ethIO)];
+		obs.upperLayerOut --> networkLayer.ifIn++;
+		obs.upperLayerIn <-- networkLayer.ifOut++;
 }

@@ -1,0 +1,9 @@
+EdgeNodeExample
+==============
+
+This network tests if OBS_EdgeNode works properly.
+
+SETTINGS:
+
+All configuration is done in omnetpp.ini. 
+Use the example given as a template.

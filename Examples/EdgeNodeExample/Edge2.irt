@@ -1,16 +1,16 @@
 ifconfig:
 
-# ethernet card 0 of router - connected to host1
+# ethernet card 0 of router - connected to host2
 name: eth0
-  inet_addr: 10.0.0.2
+  inet_addr: 10.0.2.2
   Mask: 255.255.255.0
   MTU: 1500
   Metric: 1
   BROADCAST MULTICAST
 
-# obs card - connected to host2's obs card
+# obs card - connected to Edge1
 name: obs
-  inet_addr: 10.0.1.3
+  inet_addr: 10.0.0.2
   Mask: 255.255.255.0
   MTU: 1500
   Metric: 1
@@ -19,6 +19,6 @@ name: obs
 ifconfigend.
 
 route:
-   default:    10.0.1.2 0.0.0.0   G 0 obs
+	default: 0.0.0.0 0.0.0.0 G 0 obs
 routeend.
 
